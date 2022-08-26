@@ -8,21 +8,15 @@ function NavBar() {
     const [userStatus, setUserStatus] = useState(false)
     const [accountInfo, setAccountInfo]  = useState<any>()
 
-
 const auth = getAuth(app)
 const provider = new GoogleAuthProvider()
-setPersistence(auth, browserSessionPersistence)
-.then(() => {
-    // Existing and future Auth states are now persisted in the current
-    // session only. Closing the window would clear any existing state even
-    // if a user forgets to sign out.
-    // ...
-    // New sign-in will be persisted with session persistence.
-    return  signInWithPopup;
-  })
-  .catch((error) => {
-  });
-
+// setPersistence(auth, browserSessionPersistence)
+// .then(() => {
+//     return  signInWithPopup;
+//   })
+//   .catch((error) => {
+//     alert(error)
+//   });
  const signInWithGoogle = () => {
     signInWithPopup(auth, provider)
     .then(result => {

@@ -1,0 +1,39 @@
+
+form {
+    margin: 40px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    min-width: 360px;
+}
+input {
+    height: 28px;
+    outline: none;
+    border: none;
+    border-radius: 6px;
+    padding: 6px;
+    font-size: 16px;
+}
+textarea {
+    min-height: 120px;
+    outline: none;
+    border: none;
+    border-radius: 6px;
+    padding: 6px;
+    font-size: 16px; 
+}
+button {
+    height: 36px;
+    background-color: #ff4500;
+    color: #fff;
+    border: none;
+    border-radius: 6px;
+    padding: 6px;
+    font-size: 16px;
+    cursor: pointer; 
+    width: 50%; 
+}
+.btns {
+    display: flex;
+    gap: 10px;
+}

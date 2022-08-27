@@ -1,11 +1,17 @@
 import './AddPost.css'
-import { getFirestore, collection, onSnapshot,addDoc, deleteDoc, doc} from 'firebase/firestore'
-import { useState } from 'react'
+import { getFirestore, collection, onSnapshot,addDoc, deleteDoc, doc, serverTimestamp} from 'firebase/firestore'
+import { useContext, useState } from 'react'
+import { userContext } from '../../App'
 
+type userInfo ={
+  accountInfo: string
+}
 export const db = getFirestore()
 export const colRef = collection(db, 'posts')
 
-function AddPost({setPostStatus}: any) {
+function AddPost() {
+
+  const userName = useContext(userContext)
 
   const [title, setTitle] = useState('')
   const [url, setUrl] = useState('')
@@ -35,7 +41,10 @@ const inputText = document.querySelector('.text') as HTMLInputElement;
       title: title,
       url: url,
       text: text,
-      user: 'Ali Muhsin'
+      user: userName,
+      votes: 1,
+      time: Date(),
+      createdAt: serverTimestamp()
     })
     inputTitle.value = ''
     inputUrl.value = ''
@@ -43,13 +52,12 @@ const inputText = document.querySelector('.text') as HTMLInputElement;
   }
     return ( 
         <div className='post-inputs'>
-          <form action="GET" className='PostForm'>
+          <form action='POST' className='PostForm'>
             <input type="text" placeholder="Title" required onChange={handleTitile} className='title' />
             <input type="url" placeholder="Link" onChange={handleUrl}  className='url'/>
-            <textarea  placeholder="Text(optional)" onChange={handleText} className='text'></textarea>
+            <textarea  placeholder="Text(optional)" onChange={handleText} className='text' ></textarea>
             <div className='btns'>
-              <button onClick={addPostToDb}>Post</button>
-              <button type='button' onClick={()=>setPostStatus(false)}>Cansel</button>
+              <button onClick={addPostToDb} className='add-post-btn'>Post</button>
             </div>
             </form>
         </div>

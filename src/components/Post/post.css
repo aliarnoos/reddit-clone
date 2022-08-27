@@ -1,6 +1,72 @@
 .post {
-    margin: 20px;
     padding: 20px;
     background-color: #fff;
-    min-width: 40vw;
+    min-width: 42vw;
+
+
+}
+.post-box {
+    margin-block: 16px;
+    display: flex;
+    align-items: flex-start;
+    justify-content: flex-start;
+    height: 100%;
+    min-width: 50%;
+}
+.vote-sec {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 10px;
+    height: 80%;
+}
+.vote-sec button {
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+}
+
+span {
+    font-size: 15px;
+    color: #999DA1;
+}
+a {
+    color: #ff4500;
+}
+p {
+    padding: 20px;
+}
+
+.btns {
+    display: flex;
+    gap: 20px;
+    
+}
+.post-btns {
+    display: flex;
+    gap: 20px;
+    align-items: center;
+}
+
+.post-btns button {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    gap: 2px;
+    background-color: transparent;
+    color: #999DA1;
+    text-decoration: underline;
+    font-size: 15px;
+    border: none;
+    cursor: pointer;
+}
+
+button img {
+    width: 17px;
+}
+@media (max-width: 500px) {
+    .post-btns {
+        flex-direction: column;
+        align-items: flex-start;
+    }
 }

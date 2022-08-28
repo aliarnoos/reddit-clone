@@ -1,5 +1,6 @@
 .post-inputs {
-    min-width: 50%;
+    min-width: 40%;
+    margin-bottom: 20px;
 } 
 form {
     display: flex;
@@ -20,6 +21,8 @@ textarea {
     padding: 6px;
     font-size: 16px; 
     resize: vertical; 
+    font-family: 'Raleway', sans-serif;
+
 }
 .add-post-btn {
     margin-top: 8px;

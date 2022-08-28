@@ -1,10 +1,12 @@
 .post-view {
   background-color: white;
-  min-width: 50%;
+  min-width: 40%;
   display: flex;
   justify-content: flex-start;
   gap: 10px;
-  padding-block: 6px;
+  padding-block: 10px;
+  margin-bottom: 40px;
+
 }
 .post-view button {
   height: 36px;
@@ -13,7 +15,7 @@
   border: none;
   padding: 6px;
   font-size: 20px;
-  cursor: pointer; 
+  cursor: pointer;
 }
 .post-view img {
   width: 20px;
@@ -43,4 +45,10 @@
       transform: rotate(360deg);
     }
   }
-  
+  .board {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+  }

@@ -1,24 +1,33 @@
 .post {
     padding: 20px;
     background-color: #fff;
-    min-width: 42vw;
+    width: 700px;
+    border: 1px solid rgb(255, 255, 255);
+    overflow: auto;
 
-
+}
+.post:hover {
+    border: 1px solid rgb(160, 160, 160);
 }
 .post-box {
     margin-block: 16px;
     display: flex;
     align-items: flex-start;
     justify-content: flex-start;
-    height: 100%;
-    min-width: 50%;
+    max-width: 100%;
+}
+.post-selected:hover{
+    border: 1px solid white;
+}
+.post-selected {
+    max-width: 100%;
 }
 .vote-sec {
     display: flex;
     flex-direction: column;
     align-items: center;
     padding: 10px;
-    height: 80%;
+    height: 100%;
 }
 .vote-sec button {
     background-color: transparent;
@@ -34,7 +43,7 @@ a {
     color: #ff4500;
 }
 p {
-    padding: 20px;
+    padding-block: 20px;
 }
 
 .btns {

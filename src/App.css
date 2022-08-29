@@ -24,3 +24,9 @@ a, a p, a h3{
     text-decoration: none;
     color: black;
 }
+
+@media (max-width: 500px) {
+    .main {
+        margin: 18px;
+    }
+}

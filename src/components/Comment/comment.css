@@ -1,0 +1,21 @@
+.comment-box {
+    margin-block: 20px;
+    display: flex;
+    align-items: flex-start;
+    justify-content: flex-start;
+}
+span img {
+    width: 30px;
+    border-radius: 50%;
+}
+.comment-profile {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    color: black;
+}
+.comment-header {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}

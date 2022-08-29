@@ -20,7 +20,8 @@
     border: 1px solid white;
 }
 .post-selected {
-    max-width: 100%;
+    width: 100%;
+    border: 1px solid white;
 }
 .vote-sec {
     display: flex;

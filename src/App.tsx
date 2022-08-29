@@ -6,8 +6,6 @@ import {
   doc,
   query,
   orderBy,
-  where,
-  getDocs,
   getDoc,
 } from "firebase/firestore";
 import { useState, useEffect, createContext } from "react";
@@ -37,8 +35,8 @@ type posts = {
 export const userContext = createContext("");
 
 function App() {
-  let postId = "";
-  const [showTopPost] = useState(false);
+  // const [showTopPost] = useState(false);
+  const [currentPostId, setCurrentPostId] = useState("");
 
   const [isLoading, setIsLoading] = useState(true);
   const [posts, setPosts] = useState<posts["posts"]>();
@@ -50,10 +48,10 @@ function App() {
   const fetchPostInfo = (id: string) => {
     const postRef = doc(db, "posts", id);
     getDoc(postRef).then((doc) => {
-      postId = doc.id;
-      const docInfo = { ...doc.data(), id: postId };
+      const docInfo = { ...doc.data(), id: doc.id };
       console.log(docInfo);
       setPostInfo(docInfo);
+      setCurrentPostId(doc.id);
     });
   };
 
@@ -88,7 +86,6 @@ function App() {
   };
 
   function postDelete(id: string) {
-    console.log(postId);
     const docRef = doc(db, "posts", id);
     deleteDoc(docRef);
   }
@@ -173,10 +170,7 @@ function App() {
               <Route
                 path="/postpage/:id"
                 element={
-                  <PostPage
-                    postInfo={postInfo}
-                    postDel={() => postDelete(postId)}
-                  />
+                  <PostPage postInfo={postInfo} postID={currentPostId} />
                 }
               />
             </Routes>

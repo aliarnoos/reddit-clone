@@ -40,8 +40,9 @@ function Comment({
       updateDoc(docRef, {
         votes: votes + 1,
       });
-      setUpvoted(true);
+
       setDownvoted(false);
+      setUpvoted(true);
     }
   };
 

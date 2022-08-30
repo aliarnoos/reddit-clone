@@ -7,6 +7,8 @@ import {
   query,
   orderBy,
   getDoc,
+  collection,
+  where,
 } from "firebase/firestore";
 import { useState, useEffect, createContext } from "react";
 import Borad from "./components/Board/Board";
@@ -88,6 +90,21 @@ function App() {
   function postDelete(id: string) {
     const docRef = doc(db, "posts", id);
     deleteDoc(docRef);
+
+    const commentRefPost = query(
+      collection(db, "comments"),
+      where("postId", "==", id)
+    );
+    onSnapshot(commentRefPost, (snapshot) => {
+      let dbComments: {}[] = [];
+      snapshot.docs.forEach((doc) => {
+        return dbComments.push({ ...doc.data(), id: doc.id });
+      });
+      dbComments.map((comment: any) => {
+        const docRef = doc(db, "comments", comment.id);
+        deleteDoc(docRef);
+      });
+    });
   }
 
   const displayNewPosts = () => {

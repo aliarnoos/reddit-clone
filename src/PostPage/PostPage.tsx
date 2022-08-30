@@ -66,17 +66,12 @@ function PostPage({ postInfo, postID }: props) {
   const getComments = () => {
     setComments(null);
     setIsLoading(true);
-    console.log(postID);
     const commentRefPost = query(commentRef, where("postId", "==", postID));
     onSnapshot(commentRefPost, (snapshot) => {
       let dbComments: {}[] = [];
       snapshot.docs.forEach((doc) => {
         return dbComments.push({ ...doc.data(), id: doc.id });
       });
-      // const commentsForPost: {}[] = dbComments.filter((comment: any) => {
-      //   return comment.postId === postInfo.id;
-      // });
-      // console.log(commentsForPost);
       const commentsBox = dbComments.map((comment: any) => {
         return (
           <Comment

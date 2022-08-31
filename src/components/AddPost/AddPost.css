@@ -39,3 +39,8 @@ textarea {
     display: flex;
     gap: 10px;
 }
+@media (max-width: 900px) {
+    .post-inputs {
+        min-width: 100%;
+    }
+}

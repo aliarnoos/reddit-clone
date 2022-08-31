@@ -8,6 +8,7 @@ import {
   onSnapshot,
   query,
   where,
+  orderBy,
 } from "firebase/firestore";
 import { useNavigate } from "react-router-dom";
 import { useContext, useEffect, useState } from "react";
@@ -25,8 +26,8 @@ type commentsState = {
   comments: JSX.Element[] | null;
 };
 function PostPage({ postInfo, postID }: props) {
-  const [comment, setComment] = useState("");
   const [isLoading, setIsLoading] = useState(true);
+  const [comment, setComment] = useState("");
 
   const [comments, setComments] = useState<commentsState["comments"]>();
   let navigate = useNavigate();
@@ -62,11 +63,26 @@ function PostPage({ postInfo, postID }: props) {
   const commentDelete = (id: string) => {
     const docRef = doc(db, "comments", id);
     deleteDoc(docRef);
+
+    const commentRefPost = query(
+      collection(db, "comments"),
+      where("commentId", "==", id)
+    );
+    onSnapshot(commentRefPost, (snapshot) => {
+      let dbComments: {}[] = [];
+      snapshot.docs.forEach((doc) => {
+        return dbComments.push({ ...doc.data(), id: doc.id });
+      });
+      dbComments.map((comment: any) => {
+        const docRef = doc(db, "comments", comment.id);
+        deleteDoc(docRef);
+      });
+    });
   };
+
   const getComments = () => {
-    setComments(null);
-    setIsLoading(true);
     const commentRefPost = query(commentRef, where("postId", "==", postID));
+    setComments(null);
     onSnapshot(commentRefPost, (snapshot) => {
       let dbComments: {}[] = [];
       snapshot.docs.forEach((doc) => {
@@ -87,8 +103,8 @@ function PostPage({ postInfo, postID }: props) {
         );
       });
       setComments(commentsBox);
+      setIsLoading(false);
     });
-    setIsLoading(false);
   };
   useEffect(() => {
     getComments();
@@ -112,7 +128,7 @@ function PostPage({ postInfo, postID }: props) {
           fetchPostInfo={() => "data"}
         />
         {!userName ? (
-          <h2>Plaese Sign in to comment</h2>
+          <h2>Please Sign in to comment</h2>
         ) : (
           <div className="comment">
             <span>comment as {userName}</span>

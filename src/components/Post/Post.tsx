@@ -2,7 +2,7 @@ import { useContext, useState } from "react";
 import { userContext } from "../../App";
 import { updateDoc, doc } from "firebase/firestore";
 import { db } from "../AddPost/AddPost";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import "./post.css";
 type postInfo = {
   title: string;
@@ -28,50 +28,54 @@ function Post({
   fetchPostInfo,
   selected,
 }: postInfo) {
-  const [upVoted, setUpvoted] = useState(false);
-  const [downVoted, setDownvoted] = useState(false);
-
   const userName = useContext(userContext);
   const date = new Date(time).toLocaleString();
 
   const upVote = (id: string) => {
     let docRef = doc(db, "posts", id);
-    if (upVoted) {
+    if (localStorage.getItem(`upvoted${id}`) === "true") {
       updateDoc(docRef, {
         votes: votes - 1,
       });
-      setUpvoted(false);
-    } else if (!upVoted) {
+      localStorage.setItem(`upvoted${id}`, "false");
+    } else if (!(localStorage.getItem(`upvoted${id}`) === "true")) {
       updateDoc(docRef, {
         votes: votes + 1,
       });
-
-      setDownvoted(false);
-      setUpvoted(true);
+      localStorage.setItem(`upvoted${id}`, "true");
+      localStorage.setItem(`downvoted${id}`, "false");
     }
   };
 
   const downVote = (id: string) => {
     let docRef = doc(db, "posts", id);
-    if (downVoted) {
+    if (localStorage.getItem(`downvoted${id}`) === "true") {
       updateDoc(docRef, {
         votes: votes + 1,
       });
-      setDownvoted(false);
-    } else if (!downVoted) {
+      localStorage.setItem(`downvoted${id}`, "false");
+    } else if (!(localStorage.getItem(`downvoted${id}`) === "true")) {
       updateDoc(docRef, {
         votes: votes - 1,
       });
-      setDownvoted(true);
-      setUpvoted(false);
+      localStorage.setItem(`downvoted${id}`, "true");
+      localStorage.setItem(`upvoted${id}`, "false");
     }
+  };
+  const navigate = useNavigate();
+  const goToComment = () => {
+    navigate(`/PostPage/${id}`);
   };
   return (
     <div className={"post-box"}>
       <div className="vote-sec">
         <button onClick={() => upVote(id)}>
           <img
-            src={upVoted ? "/imgs/up-voted-icon.svg" : "/imgs/up-icon.svg"}
+            src={
+              localStorage.getItem(`upvoted${id}`) === "true"
+                ? "/imgs/up-voted-icon.svg"
+                : "/imgs/up-icon.svg"
+            }
             alt="up vote"
           />
         </button>
@@ -79,7 +83,9 @@ function Post({
         <button onClick={() => downVote(id)}>
           <img
             src={
-              downVoted ? "/imgs/down-voted-icon.svg" : "/imgs/down-icon.svg"
+              localStorage.getItem(`downvoted${id}`) === "true"
+                ? "/imgs/down-voted-icon.svg"
+                : "/imgs/down-icon.svg"
             }
             alt="down vote"
           />
@@ -95,7 +101,11 @@ function Post({
             <span>Posted by {user} on </span>
             <span>{date}</span>
             <h3>{title}</h3>
-            {/* <Link to={url}>{url}</Link> */}
+            {url !== "" ? (
+              <img src={url} alt={"post"} className={"post-photo"} />
+            ) : (
+              ""
+            )}
             <p>{text}</p>
           </div>
         ) : (
@@ -103,7 +113,11 @@ function Post({
             <span>Posted by {user} on </span>
             <span>{date}</span>
             <h3>{title}</h3>
-            {/* <Link to={url}>{url}</Link> */}
+            {url !== "" ? (
+              <img src={url} alt={"post"} className={"post-photo"} />
+            ) : (
+              ""
+            )}
             <p>{text}</p>
           </Link>
         )}
@@ -117,7 +131,7 @@ function Post({
             ""
           )}
           {userName && !selected ? (
-            <button>
+            <button onClick={goToComment}>
               <img src="/imgs/comment-icon.svg" alt="delete icon" /> Comment
             </button>
           ) : (

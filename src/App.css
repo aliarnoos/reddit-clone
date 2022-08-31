@@ -5,6 +5,7 @@ body {
     padding: 0;
     background-color: #e6e9ec;
     font-family: 'Raleway', sans-serif;
+    min-height: 100vh;
 
 }
 .main {
@@ -25,7 +26,7 @@ a, a p, a h3{
     color: black;
 }
 
-@media (max-width: 500px) {
+@media (max-width: 900px) {
     .main {
         margin: 18px;
     }

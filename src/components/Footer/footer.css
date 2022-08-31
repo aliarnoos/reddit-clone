@@ -1,0 +1,25 @@
+.footer-icons {
+    display: flex;
+    justify-content: center;
+    gap: 12px;
+    margin-left: auto;
+
+  }
+  .footer-icons img {
+    width: 30px;
+  }
+  
+  footer {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    padding: 14px;
+    height: 40px;
+    background-color: white;
+    box-shadow: 0px -1px 8px -6px black;
+
+
+  }
+  footer p {
+    text-align: center;
+  }

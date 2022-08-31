@@ -23,6 +23,7 @@ import { BrowserRouter, Route, Routes } from "react-router-dom";
 import PostPage from "./PostPage/PostPage";
 import { colRef, db } from "../src/components/AddPost/AddPost";
 import Post from "./components/Post/Post";
+import Footer from "./components/Footer/Footer";
 
 export const auth = getAuth(app);
 const provider = new GoogleAuthProvider();
@@ -37,7 +38,6 @@ type posts = {
 export const userContext = createContext("");
 
 function App() {
-  // const [showTopPost] = useState(false);
   const [currentPostId, setCurrentPostId] = useState("");
 
   const [isLoading, setIsLoading] = useState(true);
@@ -48,10 +48,8 @@ function App() {
 
   const [postInfo, setPostInfo] = useState({});
   const fetchPostInfo = (id: string) => {
-    const postRef = doc(db, "posts", id);
-    getDoc(postRef).then((doc) => {
+    onSnapshot(doc(db, "posts", id), (doc) => {
       const docInfo = { ...doc.data(), id: doc.id };
-      console.log(docInfo);
       setPostInfo(docInfo);
       setCurrentPostId(doc.id);
     });
@@ -108,13 +106,11 @@ function App() {
   }
 
   const displayNewPosts = () => {
-    // setShowTopPost(false);
     displayOrder = orderByNew;
     getPosts();
   };
 
   const displayTopPosts = () => {
-    // setShowTopPost(true);
     displayOrder = orderByVote;
     getPosts();
   };
@@ -162,39 +158,42 @@ function App() {
   }, []);
 
   return (
-    <BrowserRouter>
-      <userContext.Provider value={accountInfo}>
-        <div className="App">
-          <NavBar
-            userStatus={userStatus}
-            accountInfo={accountInfo}
-            signInWithGoogle={signInWithGoogle}
-            signOutGoogle={signOutGoogle}
-          />
-          <div className="main">
-            <Routes>
-              <Route
-                path="/"
-                element={
-                  <Borad
-                    posts={posts}
-                    isLoading={isLoading}
-                    displayNewPosts={displayNewPosts}
-                    displayTopPosts={displayTopPosts}
-                  />
-                }
-              />
-              <Route
-                path="/postpage/:id"
-                element={
-                  <PostPage postInfo={postInfo} postID={currentPostId} />
-                }
-              />
-            </Routes>
+    <>
+      <BrowserRouter>
+        <userContext.Provider value={accountInfo}>
+          <div className="App">
+            <NavBar
+              userStatus={userStatus}
+              accountInfo={accountInfo}
+              signInWithGoogle={signInWithGoogle}
+              signOutGoogle={signOutGoogle}
+            />
+            <div className="main">
+              <Routes>
+                <Route
+                  path="/"
+                  element={
+                    <Borad
+                      posts={posts}
+                      isLoading={isLoading}
+                      displayNewPosts={displayNewPosts}
+                      displayTopPosts={displayTopPosts}
+                    />
+                  }
+                />
+                <Route
+                  path="/postpage/:id"
+                  element={
+                    <PostPage postInfo={postInfo} postID={currentPostId} />
+                  }
+                />
+              </Routes>
+            </div>
           </div>
-        </div>
-      </userContext.Provider>
-    </BrowserRouter>
+        </userContext.Provider>
+      </BrowserRouter>
+      <Footer />
+    </>
   );
 }
 

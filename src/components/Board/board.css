@@ -8,6 +8,7 @@
   margin-bottom: 40px;
 
 }
+
 .post-view button {
   height: 36px;
   background-color: white;
@@ -51,4 +52,11 @@
     align-items: center;
     justify-content: center;
     width: 100%;
+    min-height: 100vh;
+
   }
+  @media (max-width: 900px) {
+    .post-view {
+        min-width: 100%;
+    }
+}

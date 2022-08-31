@@ -19,3 +19,29 @@ span img {
     align-items: center;
     gap: 6px;
 }
+
+.commentReply {
+    border: 1px solid #cacbcc;
+    width: 80%;
+    height: 24px;
+}
+.reply {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.reply button {
+    height: 36px;
+    background-color: #ff4500;
+    color: #fff;
+    border: none;
+    padding-block: 6px;
+    font-size: 14px;
+    cursor: pointer; 
+    width: 130px;
+    margin-left: 10px;
+}
+
+.replay-box{
+    margin-left: 40px;
+}

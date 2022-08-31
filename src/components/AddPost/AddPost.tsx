@@ -55,34 +55,48 @@ function AddPost() {
     inputTitle.value = "";
     inputUrl.value = "";
     inputText.value = "";
+    setShowPostInput(false);
   };
+  const [showPostInput, setShowPostInput] = useState(false);
   return (
     <div className="post-inputs">
-      <form action="POST" className="PostForm">
-        <input
-          type="text"
-          placeholder="Title"
-          required
-          onChange={handleTitile}
-          className="title"
-        />
-        <input
-          type="url"
-          placeholder="Link"
-          onChange={handleUrl}
-          className="url"
-        />
-        <textarea
-          placeholder="Text(optional)"
-          onChange={handleText}
-          className="text"
-        ></textarea>
-        <div className="btns">
-          <button onClick={addPostToDb} className="add-post-btn">
-            Post
-          </button>
-        </div>
-      </form>
+      {showPostInput ? (
+        <form action="POST" className="PostForm">
+          <input
+            type="text"
+            placeholder="Post Title"
+            required
+            onChange={handleTitile}
+            className="title"
+          />
+          <input
+            type="url"
+            placeholder="Link To Photo (optional)"
+            onChange={handleUrl}
+            className="url"
+          />
+          <textarea
+            placeholder="Text (optional)"
+            onChange={handleText}
+            className="text"
+          ></textarea>
+          <div className="btns">
+            <button onClick={addPostToDb} className="add-post-btn">
+              Post
+            </button>
+            <button
+              onClick={() => setShowPostInput(false)}
+              className="add-post-btn"
+            >
+              Cansel
+            </button>
+          </div>
+        </form>
+      ) : (
+        <button onClick={() => setShowPostInput(true)} className="add-post-btn">
+          Add Post
+        </button>
+      )}
     </div>
   );
 }

@@ -25,8 +25,11 @@ function NavBar({
       </Link>
       <div className="account">
         <div className="profile">
-          {userStatus ? <img src="/imgs/profile.webp" alt="profile" /> : ""}
-          <h4>{accountInfo}</h4>
+          {userStatus ? <img src="/imgs/profile.png" alt="profile" /> : ""}
+          <div className="user-sign">
+            <h4>{accountInfo}</h4>
+            {userStatus ? <h5 onClick={signOutGoogle}>Sign Out</h5> : ""}
+          </div>
         </div>
         <div>
           {!userStatus ? (
@@ -38,9 +41,7 @@ function NavBar({
               Sign in
             </button>
           ) : (
-            <button onClick={signOutGoogle} className="login-with-google-btn">
-              Sign Out{" "}
-            </button>
+            ""
           )}
         </div>
       </div>
